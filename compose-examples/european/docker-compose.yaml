@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: frontend/.
+    ports:
+      - "8000:8000"
+  backend:
+    build: backend/.
+  db:
+    image: mysql:9.1.0
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: true

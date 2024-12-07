@@ -1,0 +1,44 @@
+version: "3.6"
+
+services:
+  frontend:
+    build: 
+      context: "../../sample-apps/python"
+      dockerfile: "Dockerfile"
+    ports:
+      - "8000:80"
+    networks:
+      - "frontend"
+    volumes:
+       - alpha:/var/log
+
+  backend:
+    image: "nginx:1.27"
+    ports:
+      - "8001:80"
+    networks:
+      - "frontend"
+      - "backend"
+
+
+  db:
+    image: "nginx:1.27"
+    networks:
+      - "backend"
+    volumes:
+       - alpha:/var/log
+
+
+
+volumes:
+  alpha:
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/kostas/mywork/log"
+      o: bind
+
+networks:
+  frontend:
+  backend:
+

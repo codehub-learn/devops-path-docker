@@ -1,0 +1,27 @@
+services:
+  webserver:
+    build: .
+    ports:
+      - "8000:8000"
+    networks:
+      - frontend
+  redis:
+    image: "redis:alpine"
+    networks:
+      - frontend
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "changeme"
+    networks:
+      - backend
+  backend:
+    image: golang
+    networks:
+      - backend
+      - frontend
+
+
+networks:
+  backend:
+  frontend:
